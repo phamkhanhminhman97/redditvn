@@ -1,0 +1,51 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "redditvn",
+	"main": "./workers/app.ts",
+	"compatibility_date": "2025-10-08",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"enabled": true
+	},
+	"upload_source_maps": true,
+
+	// Public (non-secret) configuration. Secrets live in `.dev.vars` (local) and
+	// `wrangler secret put` (prod) — see `.dev.vars.example`.
+	"vars": {
+		"SITE_URL": "http://localhost:5173",
+		"SITE_NAME": "RedditVN",
+		// Anthropic model used for translation. See app/config for options.
+		"TRANSLATION_MODEL": "claude-sonnet-5",
+		// Comma-separated admin emails (bootstrap; roles also stored in DB).
+		"ADMIN_EMAILS": ""
+	},
+
+	// D1 (SQLite) — primary database.
+	// Create with: pnpm wrangler d1 create redditvn-db  (then paste database_id).
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "redditvn-db",
+			"database_id": "00000000-0000-0000-0000-000000000000",
+			"migrations_dir": "drizzle/migrations"
+		}
+	],
+
+	// KV — sessions + hot caches (Reddit token, rendered content).
+	// Create with: pnpm wrangler kv namespace create SESSIONS  /  ... CACHE
+	"kv_namespaces": [
+		{ "binding": "SESSIONS", "id": "00000000000000000000000000000000" },
+		{ "binding": "CACHE", "id": "11111111111111111111111111111111" }
+	],
+
+	// R2 — media (thumbnails / cached images).
+	// Create with: pnpm wrangler r2 bucket create redditvn-media
+	"r2_buckets": [
+		{ "binding": "MEDIA", "bucket_name": "redditvn-media" }
+	],
+
+	// Cron: content pipeline (fetch → translate → draft). Hourly.
+	"triggers": {
+		"crons": ["0 * * * *"]
+	}
+}

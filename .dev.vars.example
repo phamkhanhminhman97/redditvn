@@ -1,0 +1,22 @@
+# Copy to `.dev.vars` for local dev (git-ignored). In production set these with:
+#   pnpm wrangler secret put <NAME>
+
+# --- Anthropic (translation) ---
+ANTHROPIC_API_KEY="sk-ant-..."
+
+# --- Reddit API (script/app-only OAuth) ---
+# Create an app at https://www.reddit.com/prefs/apps (type: "script" or "web app").
+REDDIT_CLIENT_ID="..."
+REDDIT_CLIENT_SECRET="..."
+# Reddit requires a descriptive, unique User-Agent.
+REDDIT_USER_AGENT="web:redditvn:v1.0 (by /u/yourname)"
+
+# --- Google OAuth (reader login) ---
+# https://console.cloud.google.com/apis/credentials  (OAuth 2.0 Client, Web)
+GOOGLE_CLIENT_ID="....apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="..."
+
+# --- Sessions ---
+# Random 32+ byte secret for signing session cookies. Generate:
+#   openssl rand -base64 48
+SESSION_SECRET="change-me-to-a-long-random-string"

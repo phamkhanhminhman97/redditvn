@@ -1,3 +1,4 @@
+import { CategoryBadge } from "~/components/CategoryBadge";
 import { PostCard } from "~/components/PostCard";
 import { getCategory } from "~/lib/categories";
 import { createDb } from "~/lib/db/client";
@@ -29,19 +30,30 @@ export async function loader({ params, context }: Route.LoaderArgs) {
 }
 
 export default function CategoryPage({ loaderData }: Route.ComponentProps) {
-	const { posts, label, description } = loaderData;
+	const { posts, slug, label, description } = loaderData;
 	return (
 		<div>
-			<header className="mb-4">
-				<h1 className="text-2xl font-bold">{label}</h1>
-				{description && <p className="mt-1 text-gray-500">{description}</p>}
+			<header className="mb-8">
+				<CategoryBadge slug={slug} linked={false} />
+				<h1 className="mt-3 text-3xl font-extrabold tracking-tight text-stone-900 dark:text-stone-50">
+					{label}
+				</h1>
+				{description && (
+					<p className="mt-1.5 text-stone-500 dark:text-stone-400">
+						{description}
+					</p>
+				)}
 			</header>
 			{posts.length === 0 ? (
-				<p className="py-12 text-center text-gray-500">
+				<p className="rounded-2xl border border-dashed border-stone-300 py-16 text-center text-stone-500 dark:border-stone-700 dark:text-stone-400">
 					Chưa có bài viết nào trong chuyên mục này.
 				</p>
 			) : (
-				posts.map((post) => <PostCard key={post.id} post={post} />)
+				<div className="space-y-4">
+					{posts.map((post) => (
+						<PostCard key={post.id} post={post} />
+					))}
+				</div>
 			)}
 		</div>
 	);

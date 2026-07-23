@@ -20,6 +20,8 @@
 		"db:seed:demo:local": "wrangler d1 execute redditvn-db --local --file=./drizzle/seed-demo.sql"
 	},
 	"dependencies": {
+		"@fontsource/be-vietnam-pro": "^5.2.8",
+		"@phosphor-icons/react": "^2.1.10",
 		"drizzle-orm": "^0.45.2",
 		"isbot": "5.1.32",
 		"jose": "^6.2.3",

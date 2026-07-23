@@ -1,16 +1,47 @@
 @import "tailwindcss" source(".");
 
+/* Be Vietnam Pro: full Vietnamese diacritic coverage, self-hosted for perf/privacy. */
+@import "@fontsource/be-vietnam-pro/400.css";
+@import "@fontsource/be-vietnam-pro/400-italic.css";
+@import "@fontsource/be-vietnam-pro/500.css";
+@import "@fontsource/be-vietnam-pro/600.css";
+@import "@fontsource/be-vietnam-pro/700.css";
+@import "@fontsource/be-vietnam-pro/800.css";
+
 @theme {
 	--font-sans:
-		"Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+		"Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
+
+	/* Brand accent: warm vermillion. Distinct from Tailwind's orange-600 and
+	   from Reddit's own #FF4500 — RedditVN's own mark, same energy family. */
+	--color-accent-50: oklch(97% 0.02 35);
+	--color-accent-100: oklch(93% 0.05 35);
+	--color-accent-400: oklch(72% 0.19 35);
+	--color-accent-500: oklch(66% 0.21 33);
+	--color-accent-600: oklch(58% 0.21 31);
+	--color-accent-700: oklch(50% 0.19 29);
+
+	/* Per-category accent hues, used as small badges/tags — not full section fills. */
+	--color-cat-hoidap: oklch(58% 0.16 265);
+	--color-cat-tifu: oklch(68% 0.15 75);
+	--color-cat-tinhcam: oklch(62% 0.19 5);
+	--color-cat-kienthuc: oklch(60% 0.11 195);
+	--color-cat-suyngam: oklch(58% 0.11 300);
+	--color-cat-meohay: oklch(58% 0.13 145);
+	--color-cat-kinhdi: oklch(45% 0.16 25);
+}
+
+:root {
+	color-scheme: light dark;
 }
 
 html,
 body {
-	@apply bg-white dark:bg-gray-950;
+	@apply bg-stone-50 text-stone-900 dark:bg-stone-950 dark:text-stone-100;
+}
 
-	@media (prefers-color-scheme: dark) {
-		color-scheme: dark;
-	}
+::selection {
+	@apply bg-accent-400/30;
 }

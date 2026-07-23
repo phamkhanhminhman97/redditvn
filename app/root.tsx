@@ -12,16 +12,8 @@ import type { Route } from "./+types/root";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
-	{ rel: "preconnect", href: "https://fonts.googleapis.com" },
-	{
-		rel: "preconnect",
-		href: "https://fonts.gstatic.com",
-		crossOrigin: "anonymous",
-	},
-	{
-		rel: "stylesheet",
-		href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
-	},
+	// Be Vietnam Pro is self-hosted via @fontsource (imported in app.css) —
+	// no external font request needed.
 	{ rel: "alternate", type: "application/rss+xml", title: "RedditVN", href: "/rss.xml" },
 ];
 
@@ -77,8 +69,10 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 	return (
 		<SiteLayout>
 			<div className="py-16 text-center">
-				<h1 className="text-2xl font-bold">{heading}</h1>
-				<p className="mt-2 text-gray-600">{detail}</p>
+				<h1 className="text-2xl font-bold text-stone-900 dark:text-stone-50">
+					{heading}
+				</h1>
+				<p className="mt-2 text-stone-500 dark:text-stone-400">{detail}</p>
 			</div>
 		</SiteLayout>
 	);

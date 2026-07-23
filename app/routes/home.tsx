@@ -24,16 +24,26 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 	const { posts } = loaderData;
 	return (
 		<div>
-			<h1 className="sr-only">RedditVN — Reddit hay bằng tiếng Việt</h1>
+			<div className="mb-8">
+				<h1 className="text-3xl font-extrabold tracking-tight text-stone-900 sm:text-4xl dark:text-stone-50">
+					Reddit hay,{" "}
+					<span className="text-accent-600">đọc bằng tiếng Việt</span>
+				</h1>
+				<p className="mt-2 max-w-xl text-stone-500 dark:text-stone-400">
+					Những bài đăng được cộng đồng Reddit đánh giá cao nhất, dịch tự nhiên
+					sang tiếng Việt để bạn đọc và bàn luận.
+				</p>
+			</div>
+
 			{posts.length === 0 ? (
-				<div className="rounded-lg border border-dashed border-gray-200 py-16 text-center text-gray-500">
+				<div className="rounded-2xl border border-dashed border-stone-300 py-16 text-center text-stone-500 dark:border-stone-700 dark:text-stone-400">
 					<p className="font-medium">Chưa có bài viết nào được đăng.</p>
 					<p className="mt-1 text-sm">
 						Bài dịch sẽ xuất hiện ở đây sau khi pipeline chạy và được duyệt.
 					</p>
 				</div>
 			) : (
-				<div>
+				<div className="space-y-4">
 					{posts.map((post) => (
 						<PostCard key={post.id} post={post} />
 					))}
